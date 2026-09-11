@@ -1708,3 +1708,25 @@ footer {
 .all-search-bar input:focus {
     border-color: #d97706;
 }
+/* WEBSITE LOGO */
+
+.brand a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.site-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    border-radius: 9px;
+}
+
+.brand span {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
