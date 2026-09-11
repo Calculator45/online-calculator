@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fraction Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">MATH</p>
+
+        <h1>Fraction Calculator</h1>
+
+        <p class="calculator-intro">
+            Add, subtract, multiply or divide two fractions instantly.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <div class="fraction-calculator-grid">
+
+                <div class="fraction-group">
+
+                    <label>First fraction</label>
+
+                    <input
+                        type="number"
+                        id="numeratorOne"
+                        placeholder="1"
+                    >
+
+                    <div class="fraction-line"></div>
+
+                    <input
+                        type="number"
+                        id="denominatorOne"
+                        placeholder="2"
+                    >
+
+                </div>
+
+
+                <div class="fraction-operation">
+
+                    <label for="fractionOperator">
+                        Operation
+                    </label>
+
+                    <select id="fractionOperator">
+
+                        <option value="+">+</option>
+
+                        <option value="-">−</option>
+
+                        <option value="*">×</option>
+
+                        <option value="/">÷</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="fraction-group">
+
+                    <label>Second fraction</label>
+
+                    <input
+                        type="number"
+                        id="numeratorTwo"
+                        placeholder="1"
+                    >
+
+                    <div class="fraction-line"></div>
+
+                    <input
+                        type="number"
+                        id="denominatorTwo"
+                        placeholder="4"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="fractionButton"
+            >
+                Calculate Fraction
+            </button>
+
+
+            <p
+                class="calculator-message"
+                id="fractionMessage"
+            ></p>
+
+
+            <div class="fraction-results">
+
+                <div class="main-fraction-result">
+
+                    <span>Simplified result</span>
+
+                    <strong id="fractionResult">—</strong>
+
+                </div>
+
+
+                <div class="fraction-summary">
+
+                    <div>
+
+                        <span>Decimal result</span>
+
+                        <strong id="fractionDecimal">—</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>How fraction calculations work</h2>
+
+            <p>
+                Fractions can be added, subtracted, multiplied or divided.
+                The result is automatically simplified to its lowest terms.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>Example</span>
+
+                <strong>
+                    1/2 + 1/4 = 3/4
+                </strong>
+
+            </div>
+
+
+            <p>
+                When adding or subtracting fractions, the calculator first
+                finds a common denominator. For multiplication and division,
+                the numerators and denominators are calculated directly.
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const fractionButton =
+    document.getElementById("fractionButton");
+
+
+fractionButton.addEventListener("click", function () {
+
+    const numeratorOne =
+        Number(document.getElementById("numeratorOne").value);
+
+    const denominatorOne =
+        Number(document.getElementById("denominatorOne").value);
+
+    const numeratorTwo =
+        Number(document.getElementById("numeratorTwo").value);
+
+    const denominatorTwo =
+        Number(document.getElementById("denominatorTwo").value);
+
+    const operator =
+        document.getElementById("fractionOperator").value;
+
+    const message =
+        document.getElementById("fractionMessage");
+
+
+    if (
+        document.getElementById("numeratorOne").value === "" ||
+        document.getElementById("denominatorOne").value === "" ||
+        document.getElementById("numeratorTwo").value === "" ||
+        document.getElementById("denominatorTwo").value === ""
+    ) {
+
+        message.textContent =
+            "Please enter all fraction values.";
+
+        return;
+
+    }
+
+
+    if (
+        denominatorOne === 0 ||
+        denominatorTwo === 0
+    ) {
+
+        message.textContent =
+            "A denominator cannot be zero.";
+
+        return;
+
+    }
+
+
+    let resultNumerator;
+    let resultDenominator;
+
+
+    if (operator === "+") {
+
+        resultNumerator =
+            numeratorOne * denominatorTwo +
+            numeratorTwo * denominatorOne;
+
+        resultDenominator =
+            denominatorOne * denominatorTwo;
+
+    }
+
+
+    else if (operator === "-") {
+
+        resultNumerator =
+            numeratorOne * denominatorTwo -
+            numeratorTwo * denominatorOne;
+
+        resultDenominator =
+            denominatorOne * denominatorTwo;
+
+    }
+
+
+    else if (operator === "*") {
+
+        resultNumerator =
+            numeratorOne * numeratorTwo;
+
+        resultDenominator =
+            denominatorOne * denominatorTwo;
+
+    }
+
+
+    else if (operator === "/") {
+
+        if (numeratorTwo === 0) {
+
+            message.textContent =
+                "You cannot divide by zero.";
+
+            return;
+
+        }
+
+        resultNumerator =
+            numeratorOne * denominatorTwo;
+
+        resultDenominator =
+            denominatorOne * numeratorTwo;
+
+    }
+
+
+    const divisor =
+        greatestCommonDivisor(
+            Math.abs(resultNumerator),
+            Math.abs(resultDenominator)
+        );
+
+
+    resultNumerator =
+        resultNumerator / divisor;
+
+    resultDenominator =
+        resultDenominator / divisor;
+
+
+    if (resultDenominator < 0) {
+
+        resultNumerator =
+            resultNumerator * -1;
+
+        resultDenominator =
+            resultDenominator * -1;
+
+    }
+
+
+    const decimalResult =
+        resultNumerator / resultDenominator;
+
+
+    message.textContent = "";
+
+
+    if (resultDenominator === 1) {
+
+        document.getElementById("fractionResult").textContent =
+            resultNumerator;
+
+    } else {
+
+        document.getElementById("fractionResult").textContent =
+            resultNumerator + " / " + resultDenominator;
+
+    }
+
+
+    document.getElementById("fractionDecimal").textContent =
+        Number(decimalResult.toFixed(6)).toString();
+
+});
+
+
+function greatestCommonDivisor(a, b) {
+
+    while (b !== 0) {
+
+        const temporary =
+            b;
+
+        b =
+            a % b;
+
+        a =
+            temporary;
+
+    }
+
+    return a || 1;
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Date Difference Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">EVERYDAY</p>
+
+        <h1>Date Difference Calculator</h1>
+
+        <p class="calculator-intro">
+            Find the amount of time between two calendar dates.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <div class="date-difference-input-grid">
+
+                <div class="input-group">
+
+                    <label for="differenceStartDate">
+                        Start date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="differenceStartDate"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="differenceEndDate">
+                        End date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="differenceEndDate"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="dateDifferenceButton"
+            >
+                Calculate Difference
+            </button>
+
+
+            <p
+                class="calculator-message"
+                id="dateDifferenceMessage"
+            ></p>
+
+
+            <div class="date-difference-results">
+
+                <div class="main-date-difference-result">
+
+                    <span>Difference</span>
+
+                    <strong id="dateDifferenceResult">—</strong>
+
+                </div>
+
+
+                <div class="date-difference-summary">
+
+                    <div>
+                        <span>Total days</span>
+                        <strong id="totalDifferenceDays">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Total weeks</span>
+                        <strong id="totalDifferenceWeeks">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Total hours</span>
+                        <strong id="totalDifferenceHours">—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>How date difference is calculated</h2>
+
+            <p>
+                The calculator measures the amount of time between your
+                starting date and ending date.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>Basic calculation</span>
+
+                <strong>
+                    Difference = End Date − Start Date
+                </strong>
+
+            </div>
+
+
+            <p>
+                The result includes the calendar difference as well as
+                the total number of days, weeks and hours between the dates.
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const dateDifferenceButton =
+    document.getElementById("dateDifferenceButton");
+
+
+dateDifferenceButton.addEventListener("click", function () {
+
+    const startValue =
+        document.getElementById("differenceStartDate").value;
+
+    const endValue =
+        document.getElementById("differenceEndDate").value;
+
+    const message =
+        document.getElementById("dateDifferenceMessage");
+
+
+    if (
+        startValue === "" ||
+        endValue === ""
+    ) {
+
+        message.textContent =
+            "Please select both dates.";
+
+        return;
+
+    }
+
+
+    const startParts =
+        startValue.split("-").map(Number);
+
+    const endParts =
+        endValue.split("-").map(Number);
+
+
+    const startDate =
+        new Date(
+            startParts[0],
+            startParts[1] - 1,
+            startParts[2]
+        );
+
+
+    const endDate =
+        new Date(
+            endParts[0],
+            endParts[1] - 1,
+            endParts[2]
+        );
+
+
+    if (endDate < startDate) {
+
+        message.textContent =
+            "The end date must be after the start date.";
+
+        return;
+
+    }
+
+
+    message.textContent = "";
+
+
+    const startUTC =
+        Date.UTC(
+            startParts[0],
+            startParts[1] - 1,
+            startParts[2]
+        );
+
+
+    const endUTC =
+        Date.UTC(
+            endParts[0],
+            endParts[1] - 1,
+            endParts[2]
+        );
+
+
+    const millisecondsPerDay =
+        1000 * 60 * 60 * 24;
+
+
+    const totalDays =
+        Math.round(
+            (endUTC - startUTC) /
+            millisecondsPerDay
+        );
+
+
+    const totalWeeks =
+        totalDays / 7;
+
+
+    const totalHours =
+        totalDays * 24;
+
+
+    let years =
+        endDate.getFullYear() -
+        startDate.getFullYear();
+
+
+    let months =
+        endDate.getMonth() -
+        startDate.getMonth();
+
+
+    let days =
+        endDate.getDate() -
+        startDate.getDate();
+
+
+    if (days < 0) {
+
+        months--;
+
+        const previousMonth =
+            new Date(
+                endDate.getFullYear(),
+                endDate.getMonth(),
+                0
+            );
+
+        days +=
+            previousMonth.getDate();
+
+    }
+
+
+    if (months < 0) {
+
+        years--;
+
+        months += 12;
+
+    }
+
+
+    document.getElementById("dateDifferenceResult").textContent =
+        years + " years, " +
+        months + " months, " +
+        days + " days";
+
+
+    document.getElementById("totalDifferenceDays").textContent =
+        totalDays.toLocaleString();
+
+
+    document.getElementById("totalDifferenceWeeks").textContent =
+        Number(
+            totalWeeks.toFixed(2)
+        ).toLocaleString();
+
+
+    document.getElementById("totalDifferenceHours").textContent =
+        totalHours.toLocaleString();
+
+});
+
+</script>
+
+</body>
+</html>

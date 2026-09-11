@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Savings Goal Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">MONEY</p>
+
+        <h1>Savings Goal Calculator</h1>
+
+        <p class="calculator-intro">
+            Find out how much you need to save each month to reach
+            your financial goal.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <div class="savings-input-grid">
+
+                <div class="input-group">
+
+                    <label for="targetAmount">
+                        Savings goal
+                    </label>
+
+                    <input
+                        type="number"
+                        id="targetAmount"
+                        placeholder="50000"
+                        min="0"
+                        step="0.01"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="currentSavings">
+                        Already saved
+                    </label>
+
+                    <input
+                        type="number"
+                        id="currentSavings"
+                        placeholder="5000"
+                        min="0"
+                        step="0.01"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="savingYears">
+                        Time to reach goal (years)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="savingYears"
+                        placeholder="3"
+                        min="0.1"
+                        step="0.1"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="savingsButton"
+            >
+                Calculate Savings
+            </button>
+
+
+            <p
+                class="calculator-message"
+                id="savingsMessage"
+            ></p>
+
+
+            <div class="savings-results">
+
+                <div class="main-savings-result">
+
+                    <span>You need to save each month</span>
+
+                    <strong id="monthlySavings">—</strong>
+
+                </div>
+
+
+                <div class="savings-summary">
+
+                    <div>
+                        <span>Amount still needed</span>
+                        <strong id="remainingAmount">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Time available</span>
+                        <strong id="savingMonths">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Weekly equivalent</span>
+                        <strong id="weeklySavings">—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>How the savings goal calculator works</h2>
+
+            <p>
+                The calculator subtracts the amount you have already
+                saved from your target and divides the remaining amount
+                by the number of months available.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>Monthly savings</span>
+
+                <strong>
+                    (Goal − Current Savings) ÷ Number of Months
+                </strong>
+
+            </div>
+
+
+            <h2>Example</h2>
+
+            <p>
+                Suppose your goal is 50,000 and you have already saved
+                5,000. If you want to reach the goal in three years,
+                you have 36 months to save the remaining 45,000.
+            </p>
+
+            <p class="example-calculation">
+                45,000 ÷ 36 = 1,250 per month
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const savingsButton =
+    document.getElementById("savingsButton");
+
+savingsButton.addEventListener("click", function () {
+
+    const target =
+        Number(document.getElementById("targetAmount").value);
+
+    const current =
+        Number(document.getElementById("currentSavings").value);
+
+    const years =
+        Number(document.getElementById("savingYears").value);
+
+    const message =
+        document.getElementById("savingsMessage");
+
+
+    if (
+        target <= 0 ||
+        current < 0 ||
+        years <= 0 ||
+        document.getElementById("targetAmount").value === "" ||
+        document.getElementById("currentSavings").value === "" ||
+        document.getElementById("savingYears").value === ""
+    ) {
+
+        message.textContent =
+            "Please enter valid savings details.";
+
+        return;
+    }
+
+
+    if (current >= target) {
+
+        message.textContent =
+            "You have already reached your savings goal.";
+
+        document.getElementById("monthlySavings").textContent =
+            "0.00";
+
+        document.getElementById("remainingAmount").textContent =
+            "0.00";
+
+        document.getElementById("savingMonths").textContent =
+            "0 months";
+
+        document.getElementById("weeklySavings").textContent =
+            "0.00";
+
+        return;
+    }
+
+
+    message.textContent = "";
+
+
+    const remaining =
+        target - current;
+
+    const months =
+        years * 12;
+
+    const monthly =
+        remaining / months;
+
+    const weekly =
+        remaining / (years * 52);
+
+
+    document.getElementById("monthlySavings").textContent =
+        monthly.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+
+    document.getElementById("remainingAmount").textContent =
+        remaining.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+
+    document.getElementById("savingMonths").textContent =
+        months.toLocaleString(undefined, {
+            maximumFractionDigits: 1
+        }) + " months";
+
+
+    document.getElementById("weeklySavings").textContent =
+        weekly.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+});
+
+</script>
+
+</body>
+</html>

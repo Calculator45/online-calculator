@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BMI Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">HEALTH</p>
+
+        <h1>BMI Calculator</h1>
+
+        <p class="calculator-intro">
+            Calculate your Body Mass Index using your height and weight.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <div class="bmi-input-grid">
+
+                <div class="input-group">
+
+                    <label for="weight">
+                        Weight (kg)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="weight"
+                        placeholder="70"
+                        min="1"
+                        step="0.1"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="height">
+                        Height (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="height"
+                        placeholder="175"
+                        min="1"
+                        step="0.1"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="bmiButton"
+            >
+                Calculate BMI
+            </button>
+
+
+            <p class="calculator-message" id="bmiMessage"></p>
+
+
+            <div class="bmi-result">
+
+                <span>Your BMI</span>
+
+                <strong id="bmiNumber">—</strong>
+
+                <p id="bmiCategory">
+                    Enter your height and weight above.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>What is BMI?</h2>
+
+            <p>
+                Body Mass Index (BMI) is a measurement that compares
+                a person's weight with their height. It is commonly
+                used as a general screening measure for weight categories
+                in adults.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>Formula</span>
+
+                <strong>
+                    BMI = weight (kg) ÷ height² (m)
+                </strong>
+
+            </div>
+
+
+            <h2>Adult BMI ranges</h2>
+
+            <div class="bmi-table">
+
+                <div>
+                    <span>Below 18.5</span>
+                    <strong>Underweight</strong>
+                </div>
+
+                <div>
+                    <span>18.5 – 24.9</span>
+                    <strong>Healthy weight</strong>
+                </div>
+
+                <div>
+                    <span>25.0 – 29.9</span>
+                    <strong>Overweight</strong>
+                </div>
+
+                <div>
+                    <span>30.0 and above</span>
+                    <strong>Obesity</strong>
+                </div>
+
+            </div>
+
+            <p class="calculator-note">
+                BMI is a general screening measure and does not directly
+                measure body fat or diagnose a health condition.
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const bmiButton = document.getElementById("bmiButton");
+
+bmiButton.addEventListener("click", function () {
+
+    const weight =
+        Number(document.getElementById("weight").value);
+
+    const heightCm =
+        Number(document.getElementById("height").value);
+
+    const message =
+        document.getElementById("bmiMessage");
+
+
+    if (weight <= 0 || heightCm <= 0) {
+
+        message.textContent =
+            "Please enter a valid height and weight.";
+
+        return;
+    }
+
+
+    message.textContent = "";
+
+
+    const heightMetres =
+        heightCm / 100;
+
+    const bmi =
+        weight / (heightMetres * heightMetres);
+
+    const roundedBMI =
+        bmi.toFixed(1);
+
+
+    let category;
+
+
+    if (bmi < 18.5) {
+
+        category = "Underweight";
+
+    } else if (bmi < 25) {
+
+        category = "Healthy weight";
+
+    } else if (bmi < 30) {
+
+        category = "Overweight";
+
+    } else {
+
+        category = "Obesity";
+
+    }
+
+
+    document.getElementById("bmiNumber").textContent =
+        roundedBMI;
+
+    document.getElementById("bmiCategory").textContent =
+        category;
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Date Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">DATE & TIME</p>
+
+        <h1>Date Calculator</h1>
+
+        <p class="calculator-intro">
+            Add or subtract days, weeks, months or years from any date.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <div class="date-input-grid">
+
+                <div class="input-group">
+
+                    <label for="startDate">
+                        Starting date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="startDate"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="dateOperation">
+                        Operation
+                    </label>
+
+                    <select id="dateOperation">
+
+                        <option value="add">
+                            Add
+                        </option>
+
+                        <option value="subtract">
+                            Subtract
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="dateAmount">
+                        Amount
+                    </label>
+
+                    <input
+                        type="number"
+                        id="dateAmount"
+                        placeholder="30"
+                        min="0"
+                        step="1"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="dateUnit">
+                        Unit
+                    </label>
+
+                    <select id="dateUnit">
+
+                        <option value="days">
+                            Days
+                        </option>
+
+                        <option value="weeks">
+                            Weeks
+                        </option>
+
+                        <option value="months">
+                            Months
+                        </option>
+
+                        <option value="years">
+                            Years
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="dateButton"
+            >
+                Calculate Date
+            </button>
+
+
+            <p
+                class="calculator-message"
+                id="dateMessage"
+            ></p>
+
+
+            <div class="date-results">
+
+                <div class="main-date-result">
+
+                    <span>Resulting date</span>
+
+                    <strong id="dateResult">—</strong>
+
+                </div>
+
+
+                <div class="date-summary">
+
+                    <div>
+
+                        <span>Day of the week</span>
+
+                        <strong id="dateDay">—</strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>ISO date</span>
+
+                        <strong id="dateISO">—</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>How the date calculator works</h2>
+
+            <p>
+                Choose a starting date and select whether you want to add
+                or subtract a period of time.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>Example</span>
+
+                <strong>
+                    1 January + 30 days = 31 January
+                </strong>
+
+            </div>
+
+
+            <p>
+                You can calculate dates using days, weeks, months or years.
+                This can be useful for deadlines, schedules, travel planning
+                and other everyday calculations.
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const dateButton =
+    document.getElementById("dateButton");
+
+
+dateButton.addEventListener("click", function () {
+
+    const startDateValue =
+        document.getElementById("startDate").value;
+
+    const operation =
+        document.getElementById("dateOperation").value;
+
+    const amount =
+        Number(document.getElementById("dateAmount").value);
+
+    const unit =
+        document.getElementById("dateUnit").value;
+
+    const message =
+        document.getElementById("dateMessage");
+
+
+    if (
+        startDateValue === "" ||
+        document.getElementById("dateAmount").value === "" ||
+        amount < 0
+    ) {
+
+        message.textContent =
+            "Please enter a valid date and amount.";
+
+        return;
+
+    }
+
+
+    message.textContent = "";
+
+
+    const parts =
+        startDateValue.split("-");
+
+
+    const resultDate =
+        new Date(
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2])
+        );
+
+
+    const change =
+        operation === "add"
+            ? amount
+            : -amount;
+
+
+    if (unit === "days") {
+
+        resultDate.setDate(
+            resultDate.getDate() + change
+        );
+
+    }
+
+
+    else if (unit === "weeks") {
+
+        resultDate.setDate(
+            resultDate.getDate() + (change * 7)
+        );
+
+    }
+
+
+    else if (unit === "months") {
+
+        resultDate.setMonth(
+            resultDate.getMonth() + change
+        );
+
+    }
+
+
+    else if (unit === "years") {
+
+        resultDate.setFullYear(
+            resultDate.getFullYear() + change
+        );
+
+    }
+
+
+    const formattedDate =
+        resultDate.toLocaleDateString(
+            undefined,
+            {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+
+    const dayName =
+        resultDate.toLocaleDateString(
+            undefined,
+            {
+                weekday: "long"
+            }
+        );
+
+
+    const year =
+        resultDate.getFullYear();
+
+    const month =
+        String(
+            resultDate.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            resultDate.getDate()
+        ).padStart(2, "0");
+
+
+    const isoDate =
+        year + "-" + month + "-" + day;
+
+
+    document.getElementById("dateResult").textContent =
+        formattedDate;
+
+
+    document.getElementById("dateDay").textContent =
+        dayName;
+
+
+    document.getElementById("dateISO").textContent =
+        isoDate;
+
+});
+
+</script>
+
+</body>
+</html>

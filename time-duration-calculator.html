@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Time Duration Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">EVERYDAY</p>
+
+        <h1>Time Duration Calculator</h1>
+
+        <p class="calculator-intro">
+            Calculate the amount of time between two times.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <div class="time-duration-input-grid">
+
+                <div class="input-group">
+
+                    <label for="startTime">
+                        Start time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="startTime"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="endTime">
+                        End time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="endTime"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="time-option">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="nextDay"
+                    >
+
+                    End time is on the next day
+
+                </label>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="timeDurationButton"
+            >
+                Calculate Duration
+            </button>
+
+
+            <p
+                class="calculator-message"
+                id="timeDurationMessage"
+            ></p>
+
+
+            <div class="time-duration-results">
+
+                <div class="main-time-duration-result">
+
+                    <span>Total duration</span>
+
+                    <strong id="timeDurationResult">—</strong>
+
+                </div>
+
+
+                <div class="time-duration-summary">
+
+                    <div>
+                        <span>Total minutes</span>
+                        <strong id="totalDurationMinutes">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Total hours</span>
+                        <strong id="totalDurationHours">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Total seconds</span>
+                        <strong id="totalDurationSeconds">—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>How the time duration calculator works</h2>
+
+            <p>
+                Enter a starting time and an ending time to calculate
+                the amount of time between them.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>Basic calculation</span>
+
+                <strong>
+                    Duration = End Time − Start Time
+                </strong>
+
+            </div>
+
+
+            <p>
+                If the ending time occurs after midnight, select
+                "End time is on the next day".
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const timeDurationButton =
+    document.getElementById("timeDurationButton");
+
+
+timeDurationButton.addEventListener("click", function () {
+
+    const startValue =
+        document.getElementById("startTime").value;
+
+    const endValue =
+        document.getElementById("endTime").value;
+
+    const nextDay =
+        document.getElementById("nextDay").checked;
+
+    const message =
+        document.getElementById("timeDurationMessage");
+
+
+    if (
+        startValue === "" ||
+        endValue === ""
+    ) {
+
+        message.textContent =
+            "Please select both times.";
+
+        return;
+
+    }
+
+
+    const startParts =
+        startValue.split(":").map(Number);
+
+    const endParts =
+        endValue.split(":").map(Number);
+
+
+    const startMinutes =
+        startParts[0] * 60 +
+        startParts[1];
+
+
+    let endMinutes =
+        endParts[0] * 60 +
+        endParts[1];
+
+
+    if (nextDay) {
+
+        endMinutes += 24 * 60;
+
+    }
+
+
+    if (endMinutes < startMinutes) {
+
+        message.textContent =
+            "End time is earlier than start time. Select the next-day option if needed.";
+
+        return;
+
+    }
+
+
+    message.textContent = "";
+
+
+    const durationMinutes =
+        endMinutes - startMinutes;
+
+
+    const hours =
+        Math.floor(durationMinutes / 60);
+
+
+    const minutes =
+        durationMinutes % 60;
+
+
+    const durationHours =
+        durationMinutes / 60;
+
+
+    const durationSeconds =
+        durationMinutes * 60;
+
+
+    document.getElementById("timeDurationResult").textContent =
+        hours + " hours, " +
+        minutes + " minutes";
+
+
+    document.getElementById("totalDurationMinutes").textContent =
+        durationMinutes.toLocaleString();
+
+
+    document.getElementById("totalDurationHours").textContent =
+        Number(
+            durationHours.toFixed(2)
+        ).toLocaleString();
+
+
+    document.getElementById("totalDurationSeconds").textContent =
+        durationSeconds.toLocaleString();
+
+});
+
+</script>
+
+</body>
+</html>

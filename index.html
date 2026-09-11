@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Online Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <div class="brand">Online Calculator</div>
+
+            <nav>
+                <a href="#">Home</a>
+                <a href="all-calculators.html">All Calculators</a>
+                <a href="#categories">Categories</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <section class="hero">
+        <div class="container hero-inner">
+
+            <p class="eyebrow">SMART TOOLS. SIMPLE ANSWERS.</p>
+
+            <h1>Calculate smarter.</h1>
+
+            <p class="hero-text">
+                Fast, simple calculators for money, health, maths and everyday life.
+            </p>
+
+    <div class="search-bar">
+    <input
+        type="text"
+        id="calculatorSearch"
+        placeholder="Search for a calculator"
+    >
+
+    <button type="button" id="searchButton">Search</button>
+</div>
+    <div id="searchResults" class="search-results"></div>
+        </div>
+    </section>
+
+
+    <main>
+
+        <section class="container popular-section" id="tools">
+
+            <div class="section-heading">
+                <div>
+                    <p class="section-label">POPULAR</p>
+                    <h2>Frequently used tools</h2>
+                </div>
+
+                <p>
+                    Start with one of the most commonly used calculators.
+                </p>
+            </div>
+
+
+            <div class="popular-grid">
+
+<a href="percentage-calculator.html" class="popular-card" data-name="percentage calculator math">
+                    <span>Percentage</span>
+                    <small>Calculate percentages instantly</small>
+                </a>
+
+<a href="loan-calculator.html" class="popular-card" data-name="loan payment calculator money finance">
+                    <span>Loan Payment</span>
+                    <small>Estimate monthly repayments</small>
+                </a>
+
+<a href="bmi-calculator.html" class="popular-card" data-name="bmi body mass index health calculator">
+    <span>BMI</span>
+    <small>Check your body mass index</small>
+</a>
+
+    <a href="age-calculator.html" class="popular-card" data-name="age calculator date birthday everyday">
+    <span>Age</span>
+    <small>Calculate your exact age</small>
+</a>
+
+    <a href="discount-calculator.html" class="popular-card" data-name="discount calculator sale price everyday">
+    <span>Discount</span>
+    <small>Find sale prices quickly</small>
+</a>
+
+            </div>
+
+        </section>
+
+
+        <section class="category-section" id="categories">
+
+            <div class="container">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="section-label">CATEGORIES</p>
+                        <h2>Browse calculators</h2>
+                    </div>
+
+                    <p>
+                        Find the right tool by category.
+                    </p>
+                </div>
+
+
+                <div class="category-grid">
+
+                    <div class="category-card">
+
+                        <div class="category-number">01</div>
+
+                        <h3>Money</h3>
+
+                        <p>
+                            Plan payments, savings and everyday financial decisions.
+                        </p>
+
+                        <div class="tool-list">
+                            <a href="loan-calculator.html">Loan Calculator</a>
+                            <a href="compound-interest-calculator.html">Compound Interest Calculator</a>
+                            <a href="savings-goal-calculator.html">Savings Goal Calculator</a>
+                            <a href="simple-interest-calculator.html">Simple Interest Calculator</a>
+                        </div>
+
+                    </div>
+
+
+                    <div class="category-card">
+
+                        <div class="category-number">02</div>
+
+                        <h3>Health</h3>
+
+                        <p>
+                            Simple tools for common health and fitness calculations.
+                        </p>
+
+                        <div class="tool-list">
+                            <a href="bmi-calculator.html">BMI Calculator</a>
+                            <a href="calorie-calculator.html">Calorie Calculator</a>
+                            <a href="bmr-calculator.html">BMR Calculator</a>
+                            <a href="ideal-weight-calculator.html">Ideal Weight Calculator</a>
+                        </div>
+
+                    </div>
+
+
+                    <div class="category-card">
+
+                        <div class="category-number">03</div>
+
+                        <h3>Math</h3>
+
+                        <p>
+                            Useful calculators for school, work and daily calculations.
+                        </p>
+
+                        <div class="tool-list">
+                            <a href="percentage-calculator.html">Percentage Calculator</a>
+                            <a href="scientific-calculator.html">Scientific Calculator</a>
+                            <a href="fraction-calculator.html">Fraction Calculator</a>
+                            <a href="average-calculator.html">Average Calculator</a>
+                        </div>
+
+                    </div>
+
+
+                    <div class="category-card">
+
+                        <div class="category-number">04</div>
+
+                        <h3>Everyday</h3>
+
+                        <p>
+                            Quick tools for dates, time, prices and everyday tasks.
+                        </p>
+
+                        <div class="tool-list">
+    <a href="age-calculator.html">Age Calculator</a>
+    <a href="date-calculator.html">Date Calculator</a>
+    <a href="date-difference-calculator.html">Date Difference Calculator</a>
+    <a href="discount-calculator.html">Discount Calculator</a>
+    <a href="time-duration-calculator.html">Time Duration Calculator</a>
+</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <div class="container footer-content">
+
+            <div>
+                <strong>Online Calculator</strong>
+
+                <p>
+                    Simple tools for everyday calculations.
+                </p>
+            </div>
+
+            <p class="copyright">
+                © 2026 Online Calculator
+            </p>
+
+        </div>
+
+    </footer>
+<script>
+
+const searchInput =
+    document.getElementById("calculatorSearch");
+
+const searchButton =
+    document.getElementById("searchButton");
+
+const searchResults =
+    document.getElementById("searchResults");
+
+const calculatorLinks =
+    document.querySelectorAll(".tool-list a");
+
+
+function searchCalculators() {
+
+    const searchText =
+        searchInput.value.toLowerCase().trim();
+
+    searchResults.innerHTML = "";
+
+
+    if (searchText === "") {
+        return;
+    }
+
+
+    let matches = 0;
+
+
+    calculatorLinks.forEach(function(link) {
+
+        const name =
+            link.textContent.toLowerCase();
+
+        const href =
+            link.getAttribute("href");
+
+
+        if (
+            name.includes(searchText) &&
+            href &&
+            href !== "#"
+        ) {
+
+            const result =
+                document.createElement("a");
+
+            result.href = href;
+
+            result.className =
+                "search-result-item";
+
+            result.textContent =
+                link.textContent;
+
+            searchResults.appendChild(result);
+
+            matches++;
+
+        }
+
+    });
+
+
+    if (matches === 0) {
+
+        searchResults.innerHTML =
+            '<p class="no-search-results">No calculator found.</p>';
+
+    }
+
+}
+
+
+searchInput.addEventListener(
+    "input",
+    searchCalculators
+);
+
+searchButton.addEventListener(
+    "click",
+    searchCalculators
+);
+
+</script>
+</body>
+
+</html>

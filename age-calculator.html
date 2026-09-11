@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Age Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">EVERYDAY</p>
+
+        <h1>Age Calculator</h1>
+
+        <p class="calculator-intro">
+            Enter your date of birth to calculate your exact age.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <label class="input-label" for="birthDate">
+                Date of birth
+            </label>
+
+            <input
+                class="date-input"
+                type="date"
+                id="birthDate"
+            >
+
+            <button
+                class="calculate-button"
+                id="ageButton"
+            >
+                Calculate Age
+            </button>
+
+
+            <div class="age-result" id="ageResult">
+
+                <span>Your age</span>
+
+                <strong id="years">—</strong>
+
+                <p id="ageDetails">
+                    Enter your date of birth above.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>How the age calculator works</h2>
+
+            <p>
+                The calculator compares your date of birth with today's
+                date and calculates the number of complete years, months
+                and days between the two dates.
+            </p>
+
+            <h2>Example</h2>
+
+            <p>
+                If someone was born on 10 January 2000, the calculator
+                determines how many full years have passed since that
+                date and also shows the remaining months and days.
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const ageButton = document.getElementById("ageButton");
+
+ageButton.addEventListener("click", function () {
+
+    const birthDateValue =
+        document.getElementById("birthDate").value;
+
+    if (!birthDateValue) {
+        document.getElementById("years").textContent = "—";
+        document.getElementById("ageDetails").textContent =
+            "Please enter your date of birth.";
+        return;
+    }
+
+    const parts = birthDateValue.split("-");
+
+    const birthYear = Number(parts[0]);
+    const birthMonth = Number(parts[1]);
+    const birthDay = Number(parts[2]);
+
+    const today = new Date();
+
+    let years = today.getFullYear() - birthYear;
+    let months = (today.getMonth() + 1) - birthMonth;
+    let days = today.getDate() - birthDay;
+
+    if (days < 0) {
+
+        months--;
+
+        const previousMonth =
+            new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                0
+            ).getDate();
+
+        days += previousMonth;
+    }
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    const birthDate =
+        new Date(birthYear, birthMonth - 1, birthDay);
+
+    if (birthDate > today) {
+
+        document.getElementById("years").textContent = "—";
+
+        document.getElementById("ageDetails").textContent =
+            "Date of birth cannot be in the future.";
+
+        return;
+    }
+
+    document.getElementById("years").textContent =
+        years + " years";
+
+    document.getElementById("ageDetails").textContent =
+        years + " years, " +
+        months + " months and " +
+        days + " days";
+
+});
+
+</script>
+
+</body>
+</html>

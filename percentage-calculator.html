@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Percentage Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container nav-wrap">
+
+            <div class="brand">
+                <a href="index.html">Online Calculator</a>
+            </div>
+
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="index.html#tools">Tools</a>
+                <a href="index.html#categories">Categories</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main class="calculator-page">
+
+        <div class="container calculator-page-inner">
+
+            <p class="section-label">MATH</p>
+
+            <h1>Percentage Calculator</h1>
+
+            <p class="calculator-intro">
+                Calculate a percentage of any number quickly and easily.
+            </p>
+
+
+            <div class="calculator-box">
+
+                <div class="percentage-inputs">
+
+                    <span>What is</span>
+
+                    <input
+                        type="number"
+                        id="percentage"
+                        placeholder="20"
+                    >
+
+                    <span>% of</span>
+
+                    <input
+                        type="number"
+                        id="number"
+                        placeholder="500"
+                    >
+
+                    <span>?</span>
+
+                </div>
+
+
+                <button
+                    class="calculate-button"
+                    id="calculateButton"
+                >
+                    Calculate
+                </button>
+
+
+                <div class="result-box">
+
+                    <span>Result</span>
+
+                    <strong id="result">—</strong>
+
+                </div>
+
+            </div>
+
+
+            <section class="calculator-info">
+
+                <h2>How percentages work</h2>
+
+                <p>
+                    A percentage represents a number as a fraction of 100.
+                    To calculate a percentage of a number, multiply the
+                    percentage by the number and divide the result by 100.
+                </p>
+
+
+                <div class="formula-box">
+
+                    <span>Formula</span>
+
+                    <strong>
+                        Percentage × Number ÷ 100
+                    </strong>
+
+                </div>
+
+
+                <h2>Example</h2>
+
+                <p>
+                    To calculate 20% of 500:
+                </p>
+
+                <p class="example-calculation">
+                    20 × 500 ÷ 100 = 100
+                </p>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const calculateButton =
+            document.getElementById("calculateButton");
+
+        calculateButton.addEventListener("click", function () {
+
+            const percentage =
+                Number(document.getElementById("percentage").value);
+
+            const number =
+                Number(document.getElementById("number").value);
+
+            const answer =
+                (percentage * number) / 100;
+
+            document.getElementById("result").textContent =
+                answer;
+
+        });
+
+    </script>
+
+</body>
+
+</html>

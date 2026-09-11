@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Simple Interest Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">MONEY</p>
+
+        <h1>Simple Interest Calculator</h1>
+
+        <p class="calculator-intro">
+            Calculate simple interest and the total amount after a fixed period of time.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <div class="simple-interest-grid">
+
+                <div class="input-group">
+
+                    <label for="simplePrincipal">
+                        Principal amount
+                    </label>
+
+                    <input
+                        type="number"
+                        id="simplePrincipal"
+                        placeholder="10000"
+                        min="0"
+                        step="0.01"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="simpleRate">
+                        Annual interest rate (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="simpleRate"
+                        placeholder="5"
+                        min="0"
+                        step="0.01"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="simpleYears">
+                        Time (years)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="simpleYears"
+                        placeholder="3"
+                        min="0"
+                        step="0.1"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="simpleInterestButton"
+            >
+                Calculate Interest
+            </button>
+
+
+            <p
+                class="calculator-message"
+                id="simpleInterestMessage"
+            ></p>
+
+
+            <div class="simple-interest-results">
+
+                <div class="main-simple-result">
+
+                    <span>Interest earned</span>
+
+                    <strong id="simpleInterestResult">—</strong>
+
+                </div>
+
+
+                <div class="simple-interest-summary">
+
+                    <div>
+                        <span>Principal</span>
+                        <strong id="simplePrincipalDisplay">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Total amount</span>
+                        <strong id="simpleTotalAmount">—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>What is simple interest?</h2>
+
+            <p>
+                Simple interest is calculated only on the original principal amount.
+                Unlike compound interest, previously earned interest does not earn
+                additional interest.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>Simple interest formula</span>
+
+                <strong>
+                    I = P × r × t
+                </strong>
+
+            </div>
+
+
+            <p>
+                P is the principal amount, r is the annual interest rate written
+                as a decimal, and t is the time in years.
+            </p>
+
+
+            <h2>Example</h2>
+
+            <p>
+                If you invest 10,000 at 5% simple interest for 3 years:
+            </p>
+
+            <p class="example-calculation">
+                10,000 × 0.05 × 3 = 1,500 interest
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const simpleInterestButton =
+    document.getElementById("simpleInterestButton");
+
+simpleInterestButton.addEventListener("click", function () {
+
+    const principal =
+        Number(document.getElementById("simplePrincipal").value);
+
+    const rate =
+        Number(document.getElementById("simpleRate").value);
+
+    const years =
+        Number(document.getElementById("simpleYears").value);
+
+    const message =
+        document.getElementById("simpleInterestMessage");
+
+
+    if (
+        principal < 0 ||
+        rate < 0 ||
+        years < 0 ||
+        document.getElementById("simplePrincipal").value === "" ||
+        document.getElementById("simpleRate").value === "" ||
+        document.getElementById("simpleYears").value === ""
+    ) {
+
+        message.textContent =
+            "Please enter valid values.";
+
+        return;
+    }
+
+
+    message.textContent = "";
+
+
+    const interest =
+        principal * (rate / 100) * years;
+
+    const totalAmount =
+        principal + interest;
+
+
+    document.getElementById("simpleInterestResult").textContent =
+        interest.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+
+    document.getElementById("simplePrincipalDisplay").textContent =
+        principal.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+
+    document.getElementById("simpleTotalAmount").textContent =
+        totalAmount.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+});
+
+</script>
+
+</body>
+</html>

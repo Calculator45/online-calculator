@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ideal Weight Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">HEALTH</p>
+
+        <h1>Ideal Weight Calculator</h1>
+
+        <p class="calculator-intro">
+            Estimate an ideal body weight based on your height and sex.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <div class="ideal-weight-input-grid">
+
+                <div class="input-group">
+
+                    <label for="idealSex">
+                        Sex
+                    </label>
+
+                    <select id="idealSex">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="idealHeight">
+                        Height (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="idealHeight"
+                        placeholder="175"
+                        min="1"
+                        step="0.1"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="idealWeightButton"
+            >
+                Calculate Ideal Weight
+            </button>
+
+
+            <p
+                class="calculator-message"
+                id="idealWeightMessage"
+            ></p>
+
+
+            <div class="ideal-weight-results">
+
+                <div class="main-ideal-weight-result">
+
+                    <span>Estimated ideal weight</span>
+
+                    <strong id="idealWeightResult">—</strong>
+
+                    <p>kg</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>How ideal weight is estimated</h2>
+
+            <p>
+                This calculator uses the Devine formula, which estimates
+                ideal body weight from height and sex.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>For men</span>
+
+                <strong>
+                    50 kg + 2.3 kg for each inch over 5 feet
+                </strong>
+
+            </div>
+
+
+            <div class="formula-box">
+
+                <span>For women</span>
+
+                <strong>
+                    45.5 kg + 2.3 kg for each inch over 5 feet
+                </strong>
+
+            </div>
+
+
+            <p class="calculator-note">
+                Ideal weight formulas provide general estimates only.
+                Healthy body weight can vary depending on body composition,
+                age, muscle mass and other individual factors.
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const idealWeightButton =
+    document.getElementById("idealWeightButton");
+
+idealWeightButton.addEventListener("click", function () {
+
+    const sex =
+        document.getElementById("idealSex").value;
+
+    const heightCm =
+        Number(document.getElementById("idealHeight").value);
+
+    const message =
+        document.getElementById("idealWeightMessage");
+
+
+    if (
+        heightCm <= 0 ||
+        document.getElementById("idealHeight").value === ""
+    ) {
+
+        message.textContent =
+            "Please enter a valid height.";
+
+        return;
+    }
+
+
+    message.textContent = "";
+
+
+    const heightInches =
+        heightCm / 2.54;
+
+
+    let idealWeight;
+
+
+    if (heightInches <= 60) {
+
+        if (sex === "male") {
+            idealWeight = 50;
+        } else {
+            idealWeight = 45.5;
+        }
+
+    } else {
+
+        const inchesOverFiveFeet =
+            heightInches - 60;
+
+
+        if (sex === "male") {
+
+            idealWeight =
+                50 + (2.3 * inchesOverFiveFeet);
+
+        } else {
+
+            idealWeight =
+                45.5 + (2.3 * inchesOverFiveFeet);
+
+        }
+
+    }
+
+
+    document.getElementById("idealWeightResult").textContent =
+        idealWeight.toFixed(1);
+
+});
+
+</script>
+
+</body>
+</html>

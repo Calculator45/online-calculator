@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BMR Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">HEALTH</p>
+
+        <h1>BMR Calculator</h1>
+
+        <p class="calculator-intro">
+            Estimate how many calories your body uses each day at complete rest.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <div class="bmr-input-grid">
+
+                <div class="input-group">
+
+                    <label for="bmrSex">
+                        Sex
+                    </label>
+
+                    <select id="bmrSex">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="bmrAge">
+                        Age
+                    </label>
+
+                    <input
+                        type="number"
+                        id="bmrAge"
+                        placeholder="25"
+                        min="1"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="bmrWeight">
+                        Weight (kg)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="bmrWeight"
+                        placeholder="70"
+                        min="1"
+                        step="0.1"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="bmrHeight">
+                        Height (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="bmrHeight"
+                        placeholder="175"
+                        min="1"
+                        step="0.1"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="bmrButton"
+            >
+                Calculate BMR
+            </button>
+
+
+            <p
+                class="calculator-message"
+                id="bmrMessage"
+            ></p>
+
+
+            <div class="bmr-results">
+
+                <div class="main-bmr-result">
+
+                    <span>Estimated BMR</span>
+
+                    <strong id="bmrValue">—</strong>
+
+                    <p>calories per day</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>What is BMR?</h2>
+
+            <p>
+                Basal Metabolic Rate is an estimate of how much energy your
+                body needs to perform basic functions such as breathing,
+                circulation and maintaining body temperature while at rest.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>Method used</span>
+
+                <strong>
+                    Mifflin-St Jeor Equation
+                </strong>
+
+            </div>
+
+
+            <p>
+                BMR does not include calories used through walking, exercise,
+                work or other daily activity.
+            </p>
+
+
+            <p class="calculator-note">
+                BMR is an estimate and individual energy requirements can vary.
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const bmrButton =
+    document.getElementById("bmrButton");
+
+bmrButton.addEventListener("click", function () {
+
+    const sex =
+        document.getElementById("bmrSex").value;
+
+    const age =
+        Number(document.getElementById("bmrAge").value);
+
+    const weight =
+        Number(document.getElementById("bmrWeight").value);
+
+    const height =
+        Number(document.getElementById("bmrHeight").value);
+
+    const message =
+        document.getElementById("bmrMessage");
+
+
+    if (
+        age <= 0 ||
+        weight <= 0 ||
+        height <= 0 ||
+        document.getElementById("bmrAge").value === "" ||
+        document.getElementById("bmrWeight").value === "" ||
+        document.getElementById("bmrHeight").value === ""
+    ) {
+
+        message.textContent =
+            "Please enter valid details.";
+
+        return;
+    }
+
+
+    message.textContent = "";
+
+
+    let bmr;
+
+
+    if (sex === "male") {
+
+        bmr =
+            10 * weight +
+            6.25 * height -
+            5 * age +
+            5;
+
+    } else {
+
+        bmr =
+            10 * weight +
+            6.25 * height -
+            5 * age -
+            161;
+
+    }
+
+
+    document.getElementById("bmrValue").textContent =
+        Math.round(bmr).toLocaleString();
+
+});
+
+</script>
+
+</body>
+</html>

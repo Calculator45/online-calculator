@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Loan Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">MONEY</p>
+
+        <h1>Loan Calculator</h1>
+
+        <p class="calculator-intro">
+            Estimate your monthly loan payment and see how much
+            interest you will pay over the life of the loan.
+        </p>
+
+
+        <div class="calculator-box loan-calculator-box">
+
+            <div class="loan-input-grid">
+
+                <div class="input-group">
+
+                    <label for="loanAmount">
+                        Loan amount
+                    </label>
+
+                    <input
+                        type="number"
+                        id="loanAmount"
+                        placeholder="100000"
+                        min="0"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="interestRate">
+                        Annual interest rate (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="interestRate"
+                        placeholder="6.5"
+                        min="0"
+                        step="0.01"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="loanYears">
+                        Loan term (years)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="loanYears"
+                        placeholder="5"
+                        min="1"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="loanButton"
+            >
+                Calculate Loan
+            </button>
+
+
+            <p class="calculator-message" id="loanMessage"></p>
+
+
+            <div class="loan-results">
+
+                <div class="main-loan-result">
+
+                    <span>Estimated monthly payment</span>
+
+                    <strong id="monthlyPayment">—</strong>
+
+                </div>
+
+
+                <div class="loan-summary">
+
+                    <div>
+                        <span>Total payment</span>
+                        <strong id="totalPayment">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Total interest</span>
+                        <strong id="totalInterest">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Number of payments</span>
+                        <strong id="paymentCount">—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>How loan payments are calculated</h2>
+
+            <p>
+                A standard loan payment depends on the amount borrowed,
+                the interest rate and the length of the loan. Payments
+                are usually made monthly.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>Monthly payment formula</span>
+
+                <strong>
+                    M = P × [r(1 + r)ⁿ] ÷ [(1 + r)ⁿ − 1]
+                </strong>
+
+            </div>
+
+
+            <p>
+                P is the loan principal, r is the monthly interest rate
+                and n is the total number of monthly payments.
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const loanButton = document.getElementById("loanButton");
+
+loanButton.addEventListener("click", function () {
+
+    const principal =
+        Number(document.getElementById("loanAmount").value);
+
+    const annualRate =
+        Number(document.getElementById("interestRate").value);
+
+    const years =
+        Number(document.getElementById("loanYears").value);
+
+    const message =
+        document.getElementById("loanMessage");
+
+
+    if (principal <= 0 || annualRate < 0 || years <= 0) {
+
+        message.textContent =
+            "Please enter valid loan details.";
+
+        return;
+    }
+
+
+    message.textContent = "";
+
+
+    const payments = years * 12;
+
+    const monthlyRate =
+        annualRate / 100 / 12;
+
+
+    let monthlyPayment;
+
+
+    if (monthlyRate === 0) {
+
+        monthlyPayment =
+            principal / payments;
+
+    } else {
+
+        monthlyPayment =
+            principal *
+            (
+                monthlyRate *
+                Math.pow(1 + monthlyRate, payments)
+            )
+            /
+            (
+                Math.pow(1 + monthlyRate, payments) - 1
+            );
+
+    }
+
+
+    const totalPayment =
+        monthlyPayment * payments;
+
+    const totalInterest =
+        totalPayment - principal;
+
+
+    document.getElementById("monthlyPayment").textContent =
+        monthlyPayment.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+
+    document.getElementById("totalPayment").textContent =
+        totalPayment.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+
+    document.getElementById("totalInterest").textContent =
+        totalInterest.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+
+    document.getElementById("paymentCount").textContent =
+        payments;
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Average Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">MATH</p>
+
+        <h1>Average Calculator</h1>
+
+        <p class="calculator-intro">
+            Enter a list of numbers to calculate the average,
+            total, count, minimum and maximum.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <div class="input-group">
+
+                <label for="averageNumbers">
+                    Enter numbers
+                </label>
+
+                <textarea
+                    id="averageNumbers"
+                    placeholder="Example: 10, 20, 30, 40, 50"
+                ></textarea>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="averageButton"
+            >
+                Calculate Average
+            </button>
+
+
+            <p
+                class="calculator-message"
+                id="averageMessage"
+            ></p>
+
+
+            <div class="average-results">
+
+                <div class="main-average-result">
+
+                    <span>Average</span>
+
+                    <strong id="averageResult">—</strong>
+
+                </div>
+
+
+                <div class="average-summary">
+
+                    <div>
+                        <span>Sum</span>
+                        <strong id="averageSum">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Count</span>
+                        <strong id="averageCount">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Minimum</span>
+                        <strong id="averageMinimum">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Maximum</span>
+                        <strong id="averageMaximum">—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>How to calculate an average</h2>
+
+            <p>
+                The arithmetic average, also called the mean, is calculated
+                by adding all values together and dividing the total by the
+                number of values.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>Average formula</span>
+
+                <strong>
+                    Average = Sum of Values ÷ Number of Values
+                </strong>
+
+            </div>
+
+
+            <h2>Example</h2>
+
+            <p>
+                For the numbers 10, 20 and 30, the total is 60.
+                There are three numbers, so:
+            </p>
+
+            <p class="example-calculation">
+                60 ÷ 3 = 20
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const averageButton =
+    document.getElementById("averageButton");
+
+
+averageButton.addEventListener("click", function () {
+
+    const input =
+        document.getElementById("averageNumbers").value;
+
+    const message =
+        document.getElementById("averageMessage");
+
+
+    if (input.trim() === "") {
+
+        message.textContent =
+            "Please enter at least one number.";
+
+        return;
+
+    }
+
+
+    const parts =
+        input.split(/[\s,]+/);
+
+
+    const numbers =
+        parts
+            .filter(function(value) {
+                return value !== "";
+            })
+            .map(function(value) {
+                return Number(value);
+            });
+
+
+    const invalidNumber =
+        numbers.some(function(number) {
+            return !Number.isFinite(number);
+        });
+
+
+    if (
+        invalidNumber ||
+        numbers.length === 0
+    ) {
+
+        message.textContent =
+            "Please enter valid numbers separated by commas or spaces.";
+
+        return;
+
+    }
+
+
+    message.textContent = "";
+
+
+    const sum =
+        numbers.reduce(function(total, number) {
+            return total + number;
+        }, 0);
+
+
+    const average =
+        sum / numbers.length;
+
+
+    const minimum =
+        Math.min(...numbers);
+
+
+    const maximum =
+        Math.max(...numbers);
+
+
+    document.getElementById("averageResult").textContent =
+        Number(average.toFixed(6)).toLocaleString();
+
+
+    document.getElementById("averageSum").textContent =
+        Number(sum.toFixed(6)).toLocaleString();
+
+
+    document.getElementById("averageCount").textContent =
+        numbers.length.toLocaleString();
+
+
+    document.getElementById("averageMinimum").textContent =
+        minimum.toLocaleString();
+
+
+    document.getElementById("averageMaximum").textContent =
+        maximum.toLocaleString();
+
+});
+
+</script>
+
+</body>
+</html>

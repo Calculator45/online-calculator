@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scientific Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">MATH</p>
+
+        <h1>Scientific Calculator</h1>
+
+        <p class="calculator-intro">
+            Perform everyday arithmetic, powers, roots,
+            logarithms and trigonometric calculations.
+        </p>
+
+
+        <div class="calculator-box scientific-wrapper">
+
+            <div class="scientific-display">
+
+                <div id="scientificExpression"></div>
+
+                <input
+                    type="text"
+                    id="scientificDisplay"
+                    value="0"
+                    readonly
+                >
+
+            </div>
+
+
+            <div class="scientific-grid">
+
+                <button class="scientific-function" data-action="clear">
+                    AC
+                </button>
+
+                <button class="scientific-function" data-action="delete">
+                    DEL
+                </button>
+
+                <button class="scientific-function" data-value="(">
+                    (
+                </button>
+
+                <button class="scientific-function" data-value=")">
+                    )
+                </button>
+
+
+                <button class="scientific-function" data-action="sin">
+                    sin
+                </button>
+
+                <button class="scientific-function" data-action="cos">
+                    cos
+                </button>
+
+                <button class="scientific-function" data-action="tan">
+                    tan
+                </button>
+
+                <button class="scientific-function" data-action="sqrt">
+                    √
+                </button>
+
+
+                <button class="scientific-function" data-action="log">
+                    log
+                </button>
+
+                <button class="scientific-function" data-action="ln">
+                    ln
+                </button>
+
+                <button class="scientific-function" data-action="square">
+                    x²
+                </button>
+
+                <button class="scientific-function" data-action="pi">
+                    π
+                </button>
+
+
+                <button data-value="7">7</button>
+                <button data-value="8">8</button>
+                <button data-value="9">9</button>
+
+                <button class="scientific-operator" data-value="/">
+                    ÷
+                </button>
+
+
+                <button data-value="4">4</button>
+                <button data-value="5">5</button>
+                <button data-value="6">6</button>
+
+                <button class="scientific-operator" data-value="*">
+                    ×
+                </button>
+
+
+                <button data-value="1">1</button>
+                <button data-value="2">2</button>
+                <button data-value="3">3</button>
+
+                <button class="scientific-operator" data-value="-">
+                    −
+                </button>
+
+
+                <button data-value="0">0</button>
+                <button data-value=".">.</button>
+
+                <button class="scientific-equals" data-action="equals">
+                    =
+                </button>
+
+                <button class="scientific-operator" data-value="+">
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>Scientific calculator functions</h2>
+
+            <p>
+                This calculator supports standard arithmetic as well as
+                square roots, powers, logarithms and trigonometric functions.
+            </p>
+
+            <div class="formula-box">
+                <span>Trigonometry</span>
+                <strong>sin, cos and tan use degrees</strong>
+            </div>
+
+            <p>
+                For example, entering 30 and pressing sin gives 0.5.
+                You can also calculate square roots, logarithms and squares.
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const display =
+    document.getElementById("scientificDisplay");
+
+const expressionDisplay =
+    document.getElementById("scientificExpression");
+
+const buttons =
+    document.querySelectorAll(".scientific-grid button");
+
+let expression = "";
+
+
+function updateDisplay() {
+
+    display.value =
+        expression === "" ? "0" : expression;
+
+}
+
+
+buttons.forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        const value =
+            button.dataset.value;
+
+        const action =
+            button.dataset.action;
+
+
+        if (value !== undefined) {
+
+            expression += value;
+
+            updateDisplay();
+
+            return;
+
+        }
+
+
+        if (action === "clear") {
+
+            expression = "";
+
+            expressionDisplay.textContent = "";
+
+            updateDisplay();
+
+        }
+
+
+        else if (action === "delete") {
+
+            expression =
+                expression.slice(0, -1);
+
+            updateDisplay();
+
+        }
+
+
+        else if (action === "pi") {
+
+            expression +=
+                Math.PI.toString();
+
+            updateDisplay();
+
+        }
+
+
+        else if (action === "square") {
+
+            calculateFunction(function(number) {
+                return number * number;
+            });
+
+        }
+
+
+        else if (action === "sqrt") {
+
+            calculateFunction(function(number) {
+                return Math.sqrt(number);
+            });
+
+        }
+
+
+        else if (action === "log") {
+
+            calculateFunction(function(number) {
+                return Math.log10(number);
+            });
+
+        }
+
+
+        else if (action === "ln") {
+
+            calculateFunction(function(number) {
+                return Math.log(number);
+            });
+
+        }
+
+
+        else if (action === "sin") {
+
+            calculateFunction(function(number) {
+                return Math.sin(number * Math.PI / 180);
+            });
+
+        }
+
+
+        else if (action === "cos") {
+
+            calculateFunction(function(number) {
+                return Math.cos(number * Math.PI / 180);
+            });
+
+        }
+
+
+        else if (action === "tan") {
+
+            calculateFunction(function(number) {
+                return Math.tan(number * Math.PI / 180);
+            });
+
+        }
+
+
+        else if (action === "equals") {
+
+            calculateExpression();
+
+        }
+
+    });
+
+});
+
+
+function getCurrentValue() {
+
+    if (expression === "") {
+        return null;
+    }
+
+    try {
+
+        const value =
+            Function(
+                '"use strict"; return (' + expression + ')'
+            )();
+
+        return Number(value);
+
+    }
+
+    catch {
+
+        return null;
+
+    }
+
+}
+
+
+function calculateFunction(operation) {
+
+    const number =
+        getCurrentValue();
+
+    if (
+        number === null ||
+        !Number.isFinite(number)
+    ) {
+
+        display.value = "Error";
+
+        return;
+
+    }
+
+
+    const result =
+        operation(number);
+
+
+    if (!Number.isFinite(result)) {
+
+        display.value = "Error";
+
+        return;
+
+    }
+
+
+    expressionDisplay.textContent =
+        expression;
+
+
+    expression =
+        Number(result.toFixed(10)).toString();
+
+
+    updateDisplay();
+
+}
+
+
+function calculateExpression() {
+
+    if (expression === "") {
+        return;
+    }
+
+
+    try {
+
+        const oldExpression =
+            expression;
+
+
+        const result =
+            Function(
+                '"use strict"; return (' + expression + ')'
+            )();
+
+
+        if (!Number.isFinite(Number(result))) {
+
+            display.value = "Error";
+
+            return;
+
+        }
+
+
+        expressionDisplay.textContent =
+            oldExpression + " =";
+
+
+        expression =
+            Number(
+                Number(result).toFixed(10)
+            ).toString();
+
+
+        updateDisplay();
+
+    }
+
+    catch {
+
+        display.value = "Error";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

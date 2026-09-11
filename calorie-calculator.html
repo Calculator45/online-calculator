@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Calorie Calculator | Online Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-wrap">
+
+        <div class="brand">
+            <a href="index.html">Online Calculator</a>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="index.html#tools">Tools</a>
+            <a href="index.html#categories">Categories</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="container calculator-page-inner">
+
+        <p class="section-label">HEALTH</p>
+
+        <h1>Calorie Calculator</h1>
+
+        <p class="calculator-intro">
+            Estimate how many calories you may need each day based on your age,
+            body measurements and activity level.
+        </p>
+
+
+        <div class="calculator-box">
+
+            <div class="calorie-input-grid">
+
+                <div class="input-group">
+
+                    <label for="sex">
+                        Sex
+                    </label>
+
+                    <select id="sex">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="calorieAge">
+                        Age
+                    </label>
+
+                    <input
+                        type="number"
+                        id="calorieAge"
+                        placeholder="25"
+                        min="1"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="calorieWeight">
+                        Weight (kg)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="calorieWeight"
+                        placeholder="70"
+                        min="1"
+                        step="0.1"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="calorieHeight">
+                        Height (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="calorieHeight"
+                        placeholder="175"
+                        min="1"
+                        step="0.1"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="activityLevel">
+                        Activity level
+                    </label>
+
+                    <select id="activityLevel">
+
+                        <option value="1.2">
+                            Sedentary
+                        </option>
+
+                        <option value="1.375">
+                            Lightly active
+                        </option>
+
+                        <option value="1.55" selected>
+                            Moderately active
+                        </option>
+
+                        <option value="1.725">
+                            Very active
+                        </option>
+
+                        <option value="1.9">
+                            Extremely active
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                id="calorieButton"
+            >
+                Calculate Calories
+            </button>
+
+
+            <p
+                class="calculator-message"
+                id="calorieMessage"
+            ></p>
+
+
+            <div class="calorie-results">
+
+                <div class="main-calorie-result">
+
+                    <span>Estimated maintenance calories</span>
+
+                    <strong id="maintenanceCalories">—</strong>
+
+                    <p>calories per day</p>
+
+                </div>
+
+
+                <div class="calorie-summary">
+
+                    <div>
+                        <span>Estimated BMR</span>
+                        <strong id="bmrResult">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Weight-loss estimate</span>
+                        <strong id="lossCalories">—</strong>
+                    </div>
+
+                    <div>
+                        <span>Weight-gain estimate</span>
+                        <strong id="gainCalories">—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <section class="calculator-info">
+
+            <h2>How calorie needs are estimated</h2>
+
+            <p>
+                This calculator first estimates your Basal Metabolic Rate,
+                which is the amount of energy your body uses at rest.
+                It then applies an activity factor to estimate your total
+                daily energy expenditure.
+            </p>
+
+
+            <div class="formula-box">
+
+                <span>Calculation</span>
+
+                <strong>
+                    Daily calories = BMR × Activity Factor
+                </strong>
+
+            </div>
+
+
+            <h2>About the result</h2>
+
+            <p>
+                The maintenance value estimates the calories needed to
+                maintain your current weight. The weight-loss and weight-gain
+                figures shown here use a simple adjustment of 500 calories
+                per day.
+            </p>
+
+
+            <p class="calculator-note">
+                These values are estimates only. Individual calorie needs can
+                vary due to health, body composition, medications and other
+                factors.
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const calorieButton =
+    document.getElementById("calorieButton");
+
+calorieButton.addEventListener("click", function () {
+
+    const sex =
+        document.getElementById("sex").value;
+
+    const age =
+        Number(document.getElementById("calorieAge").value);
+
+    const weight =
+        Number(document.getElementById("calorieWeight").value);
+
+    const height =
+        Number(document.getElementById("calorieHeight").value);
+
+    const activity =
+        Number(document.getElementById("activityLevel").value);
+
+    const message =
+        document.getElementById("calorieMessage");
+
+
+    if (
+        age <= 0 ||
+        weight <= 0 ||
+        height <= 0 ||
+        document.getElementById("calorieAge").value === "" ||
+        document.getElementById("calorieWeight").value === "" ||
+        document.getElementById("calorieHeight").value === ""
+    ) {
+
+        message.textContent =
+            "Please enter valid details.";
+
+        return;
+    }
+
+
+    message.textContent = "";
+
+
+    let bmr;
+
+
+    if (sex === "male") {
+
+        bmr =
+            10 * weight +
+            6.25 * height -
+            5 * age +
+            5;
+
+    } else {
+
+        bmr =
+            10 * weight +
+            6.25 * height -
+            5 * age -
+            161;
+
+    }
+
+
+    const maintenance =
+        bmr * activity;
+
+    const loss =
+        Math.max(maintenance - 500, 0);
+
+    const gain =
+        maintenance + 500;
+
+
+    document.getElementById("maintenanceCalories").textContent =
+        Math.round(maintenance).toLocaleString();
+
+
+    document.getElementById("bmrResult").textContent =
+        Math.round(bmr).toLocaleString();
+
+
+    document.getElementById("lossCalories").textContent =
+        Math.round(loss).toLocaleString();
+
+
+    document.getElementById("gainCalories").textContent =
+        Math.round(gain).toLocaleString();
+
+});
+
+</script>
+
+</body>
+</html>
