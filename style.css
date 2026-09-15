@@ -1833,3 +1833,21 @@ footer {
         justify-content: center;
     }
 }
+/* HOMEPAGE INFO SECTION */
+
+.homepage-info {
+    padding: 70px 0;
+    background: #f8f8f6;
+}
+
+.homepage-info h2 {
+    margin: 12px 0 20px;
+    font-size: 32px;
+}
+
+.homepage-info p:not(.section-label) {
+    max-width: 900px;
+    margin-bottom: 16px;
+    line-height: 1.7;
+    color: #4b5563;
+}
