@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Percentage Calculator - Calculate Percentages Online</title>
-    <meta name="description" content="Free online percentage calculator to quickly calculate percentages, percentage increases, decreases and percentage differences.">
+    <title>Percentage Calculator – Percentage Increase, Decrease & Percent of a Number</title>
+<meta name="description" content="Free percentage calculator to find a percentage of a number, percentage increase or decrease, and what percent one number is of another.">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -39,9 +39,9 @@
 
             <h1>Percentage Calculator</h1>
 
-            <p class="calculator-intro">
-                Calculate a percentage of any number quickly and easily.
-            </p>
+           <p class="calculator-intro">
+    Calculate percentages quickly and easily. Find a percentage of a number, calculate percentage increase or decrease, and work out what percent one number is of another.
+</p>
 
 
             <div class="calculator-box">
@@ -86,7 +86,29 @@
                 </div>
 
             </div>
+        <div class="calculator-box">
+    <h2>What percent is one number of another?</h2>
 
+    <div class="percentage-inputs">
+        <input type="number" id="partValue" placeholder="Example: 50">
+
+        <span>is what % of</span>
+
+        <input type="number" id="wholeValue" placeholder="Example: 200">
+    </div>
+
+    <button
+        class="calculate-button"
+        id="percentOfButton"
+    >
+        Calculate
+    </button>
+
+    <div class="result-box">
+        <span>Result</span>
+        <strong id="percentOfResult">—</strong>
+    </div>
+</div>
 
             <section class="calculator-info">
 
@@ -167,7 +189,29 @@
                 answer;
 
         });
+    const percentOfButton =
+    document.getElementById("percentOfButton");
 
+percentOfButton.addEventListener("click", function () {
+
+    const part =
+        Number(document.getElementById("partValue").value);
+
+    const whole =
+        Number(document.getElementById("wholeValue").value);
+
+    if (whole === 0) {
+        document.getElementById("percentOfResult").textContent =
+            "Enter a number greater than 0";
+        return;
+    }
+
+    const percent =
+        (part / whole) * 100;
+
+    document.getElementById("percentOfResult").textContent =
+        percent.toFixed(2) + "%";
+});
     </script>
 
 <div id="site-footer"></div>
